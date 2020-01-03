@@ -2,7 +2,7 @@
 #define MYSTL_CONSTRUCT_H
 
 #include <new> // placement new 在此头文件内
-#include "typetraits.h"
+#include "type_traits.h"
 
 namespace mystl
 {
@@ -32,7 +32,9 @@ inline void destroy_aux(ForwardIterator first, ForwardIterator last, _false_type
 // 两个参数的全局 destroy 函数，根据其是否具有 trivial 析构函数进行重载
 template<typename ForwardIterator>
 inline void destroy(ForwardIterator first, ForwardIterator last) {
-    using is_trivial_dtor = type_traits<value_type(first)()>::has_trivial_destructor;
+    // 由于暂未实现 mystl::iterator_traits，故而使用 std 中已有接口
+    using value_type = typename std::iterator_traits<ForwardIterator>::value_type;
+    using is_trivial_dtor = typename type_traits<value_type>::has_trivial_destructor;
     destroy_aux(first, last, is_trivial_dtor());
 }
 

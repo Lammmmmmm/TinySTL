@@ -1,25 +1,15 @@
 #include <iostream>
-#include "typetraits.h"
+#include "allocator.h"
+#include "type_traits.h"
+#include <vector>
 
-using namespace std;
-
-class A1{
-    int a;
-    double b;
-};
-
-class A2:public A1
-{
-    A1 num1;
-    double num2;
-};
+using std::cout;
+using std::endl;
 
 int main(){
-    A1 a1;
-    A2 a2;
-    int num;
-    cout << std::is_pod<A1>::value << endl;
-    cout << std::is_pod<A2>::value << endl;
-    cout << mystl::is_const<const int>::value << endl;
+    std::vector<int,mystl::allocator<int>> vec(5,5);
+    for(auto &each: vec)
+        cout << each << " ";
+    cout << endl;
     return 0;
 }

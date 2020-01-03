@@ -75,7 +75,7 @@ void allocator<T>::construct(T* ptr, const T& value) {
 
 template <typename T>
 void allocator<T>::construct(T* ptr, T&& value) {
-	mystl::construct(ptr, mystl::move(value));
+	mystl::construct(ptr, std::move(value));
 }
 
 template <typename T>
@@ -95,7 +95,7 @@ T* allocator<T>::address(T& val) {
 
 template <typename T>
 size_t allocator<T>::max_size() {
-    return size_t(UINT_MAX/sizeof(T));
+    return size_t(WINT_MAX/sizeof(T));
 }
 // TODO : 具有 SGI STL特色的两级分配器
 } // namespace mystl

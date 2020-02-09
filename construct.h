@@ -3,7 +3,7 @@
 
 #include <new>  // placement new 在此头文件内
 #include "type_traits.h"
-
+#include "iterator.h"
 namespace mystl {
 // 全局 construct 函数，使用 placement new 将一个值放入指针所指内存
 // 使用了两个模板参数，并使用显式转换
@@ -43,9 +43,8 @@ inline void destroy_aux(ForwardIterator first,
 // 两个参数的全局 destroy 函数，根据其是否具有 trivial 析构函数进行重载
 template <typename ForwardIterator>
 inline void destroy(ForwardIterator first, ForwardIterator last) {
-    // 由于暂未实现 mystl::iterator_traits，故而使用 std 中已有接口
     using value_type =
-        typename std::iterator_traits<ForwardIterator>::value_type;
+        typename mystl::iterator_traits<ForwardIterator>::value_type;
     using is_trivial_dtor =
         typename type_traits<value_type>::has_trivial_destructor;
     destroy_aux(first, last, is_trivial_dtor());

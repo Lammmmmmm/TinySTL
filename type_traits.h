@@ -194,5 +194,5 @@ struct is_const: public false_type { };
 template<typename T>
 struct is_const<const T>: public true_type { };
 
-}
+} // namespace mystl
 #endif // !MYSTL_TYPETRAITS_H_

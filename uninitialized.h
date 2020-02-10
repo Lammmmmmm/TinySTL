@@ -42,15 +42,15 @@ inline ForwardIterator uninitialized_copy(InputIterator first,
 }
 
 template <typename ForwardIterator, typename T>
-inline ForwardIterator uninitialized_fill_aux(ForwardIterator first,
+inline void uninitialized_fill_aux(ForwardIterator first,
                                               ForwardIterator last,
                                               const T& value,
                                               _true_type) {
-    return std::fill(first, last, value);
+    std::fill(first, last, value);
 }
 
 template <typename ForwardIterator, typename T>
-inline ForwardIterator uninitialized_fill_aux(ForwardIterator first,
+inline void uninitialized_fill_aux(ForwardIterator first,
                                               ForwardIterator last,
                                               const T& value,
                                               _false_type) {
@@ -66,13 +66,13 @@ inline ForwardIterator uninitialized_fill_aux(ForwardIterator first,
 }
 
 template <typename ForwardIterator, typename T>
-inline ForwardIterator uninitialized_fill(ForwardIterator first,
+inline void uninitialized_fill(ForwardIterator first,
                                           ForwardIterator last,
                                           const T& value) {
     using value_type =
         typename mystl::iterator_traits<ForwardIterator>::value_type;
     using is_POD = typename type_traits<value_type>::is_POD_type;
-    return uninitialized_fill_aux(first, last, value, is_POD());
+    uninitialized_fill_aux(first, last, value, is_POD());
 }
 
 template <typename ForwardIterator, typename T>
@@ -80,7 +80,7 @@ inline ForwardIterator uninitialized_fill_n_aux(ForwardIterator first,
                                                 size_t n,
                                                 const T& value,
                                                 _true_type) {
-    std::fill_n(first, n, value);
+    return std::fill_n(first, n, value);
 }
 
 template <typename ForwardIterator, typename T>

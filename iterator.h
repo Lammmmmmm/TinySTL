@@ -3,8 +3,7 @@
 
 #include <cstddef>
 
-namespace mystl
-{
+namespace mystl{
 // 分别表示5种迭代器 category 的 struct
 struct input_iterator_tag {};
 struct output_iterator_tag {};
@@ -15,8 +14,7 @@ struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 // 迭代器模板
 template<typename Category, typename T, typename Distance = ptrdiff_t,
          typename Pointer = T*, typename Reference = T&>
-struct iterator
-{
+struct iterator{
     using iterator_category = Category;
     using value_type        = T;
     using difference_type   = Distance;
@@ -26,8 +24,7 @@ struct iterator
 
 // 迭代器的 traits
 template <typename Iterator>
-struct iterator_traits
-{
+struct iterator_traits{
     using value_type        = typename Iterator::value_type;
     using iterator_category = typename Iterator::iterator_category;
     using difference_type   = typename Iterator::difference_type;
@@ -35,9 +32,9 @@ struct iterator_traits
     using reference         = typename Iterator::reference;
 };
 
+// 偏特化版本
 template <typename T>
-struct iterator_traits<T*>
-{
+struct iterator_traits<T*>{
     using value_type        = T;
     using iterator_category = random_access_iterator_tag;
     using difference_type   = ptrdiff_t;
@@ -46,8 +43,7 @@ struct iterator_traits<T*>
 };
 
 template <typename T>
-struct iterator_traits<const T*>
-{
+struct iterator_traits<const T*>{
     using value_type        = T;
     using iterator_category = random_access_iterator_tag;
     using difference_type   = ptrdiff_t;
@@ -62,7 +58,7 @@ inline typename iterator_traits<Iterator>::iterator_category iterator_category(c
 }
 
 template <typename Iterator>
-inline typename iterator_traits<Iterator>::difference_type* distance_type(const Iterator&) {
+inline typename iterator_traits<Iterator>::difference_type* difference_type(const Iterator&) {
     return static_cast<typename iterator_traits<Iterator>::difference*>(0);
 }
 

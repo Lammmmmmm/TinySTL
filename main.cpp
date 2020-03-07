@@ -1,26 +1,21 @@
-#include <iostream>
-#include "allocator.h"
-#include "alloc.h"
-#include "type_traits.h"
+#include <algorithm>
 #include <vector>
-#include "test_alloc.h"
-
+#include "vector.h"
+#include "priority_queue.h"
 using std::cout;
 using std::endl;
-using FunPtr = void (*)(int&);
-void bigger(int& num){
-    num += 1;
-}
-void (* set_m(FunPtr))(){
+using std::vector;
 
-}
-
-union obj {
-    union obj* next;
-    char data[1];
-};
-
-int main(){
-    mystl::test_alloc();
+int main() {
+    // mystl::list_test();
+    mystl::vector<int> vec = {1, 2, 3, 4, 5};
+    mystl::priority_queue<int> pq(vec.begin(), vec.end());
+    cout << pq.empty() << endl;        // 5
+    cout << pq.size() << endl;  // 4
+    cout << pq.top() << endl;    // 1
+    pq.push(6);
+    cout << pq.top() << endl;    // 1
+    pq.pop();
+    cout << pq.top() << endl;    // 1
     return 0;
 }

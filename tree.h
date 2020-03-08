@@ -208,10 +208,10 @@ inline void rb_tree_rebalance(tree_node<Value>* x, tree_node<Value>*& root) {
 /* 这个代码太长了， 脑容量不够了，直接复制了，留着源码注释以后细读 */
 // 删除节点后调整平衡
 template <typename Value>
-inline void rb_tree_rebalance_for_erase(tree_node<Value>* z,
-                                        tree_node<Value>*& root,
-                                        tree_node<Value>*& leftmost,
-                                        tree_node<Value>*& rightmost) {
+inline tree_node<Value>* rb_tree_rebalance_for_erase(tree_node<Value>* z,
+                                                     tree_node<Value>*& root,
+                                                     tree_node<Value>*& leftmost,
+                                                     tree_node<Value>*& rightmost) {
     tree_node<Value>* y = z;
     tree_node<Value>* x = 0;
     tree_node<Value>* x_parent = 0;
@@ -344,7 +344,7 @@ class rb_tree {
     using const_reference   = const value_type&;
     using link_type         = tree_node<Value>*;
     using iterator          = tree_iterator<Value, Value&, Value*>;
-    using const_iterator    = tree_iterator<Value, const Value&, const Value*>;
+    using const_iterator    = tree_iterator<Value, Value&, Value*>;
 
    protected:
     using rb_tree_node  = tree_node<Value>;
@@ -491,7 +491,7 @@ class rb_tree {
     std::pair<const_iterator, const_iterator> equal_range(
         const key_type& x) const;
     bool rb_verify() const;
-};
+}; // class tree
 
 template <typename Key, typename Value, typename KeyOfValue, typename Compare>
 inline bool operator==(const rb_tree<Key, Value, KeyOfValue, Compare>& lhs,
